@@ -24,12 +24,42 @@ class ArtController extends AbstractController
      */
     public function travel()
     {
-        $art = new MetManager();
-        $objects = $art->getObjectsByLocationAndPeriod("Greece", "-3000", "476");
-        $id = $objects["objectIDs"][0];
-        $artwork = $art->getInfosById($id);
-        return $this->twig->render('Met/artView.html.twig', [
-            'artwork' => $artwork
-        ]);
+        $metManager = new MetManager();
+        $artwork =[];
+
+
+        if (isset($_POST['region']) && empty($_POST['dateBegin']) && empty($_POST['dateEnd'])) {
+            echo "if";
+            $dateBegin = '-3000';
+            $dateEnd = '2000';
+            $location= $_POST['region'];
+            $object=$metManager->getObjectsByLocationAndPeriod($location, $dateBegin, $dateEnd);
+
+            for ($i=0; $i<=3; $i++) {
+                $rand =rand(1, count($object['objectIDs']));
+                $id=$object['objectIDs'][$rand];
+                $artwork[$i] = $metManager->getInfosById($id);
+            }
+
+            return $this->twig->render('Met/artView.html.twig', [
+                'artwork' => $artwork
+            ]);
+        } elseif (isset($_POST['region']) && isset($_POST['dateBegin']) && isset($_POST['dateEnd'])) {
+            echo "elseif";
+            $dateBegin = $_POST['dateBegin'];
+            $dateEnd = $_POST['dateEnd'];
+            $location= $_POST['region'];
+
+            $object=$metManager->getObjectsByLocationAndPeriod($location, $dateBegin, $dateEnd);
+
+            for ($i=0; $i<=3; $i++) {
+                $rand =rand(3, count($object['objectIDs']));
+                $id=$object['objectIDs'][$i+$rand];
+                $artwork[$i] = $metManager->getInfosById($id);
+            }
+            return $this->twig->render('Met/artView.html.twig', [
+                'artwork' => $artwork
+            ]);
+        }
     }
 }
