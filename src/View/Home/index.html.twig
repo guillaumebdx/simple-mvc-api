@@ -1,5 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Hello Wilder !</h1>
+    <select id="cars" name="region" form="regionform">
+        <option value="Italy">Italy</option>
+        <option value="France">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    <form action="/form/index" method="POST" id="regionform">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 {% endblock %}
