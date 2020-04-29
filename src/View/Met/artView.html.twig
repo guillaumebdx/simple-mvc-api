@@ -3,8 +3,21 @@
 {% block content %}
     <div class="container">
         <h1>
-           {{ artwork.title }}
+           {{ artwork.0.title }}
+
         </h1>
-        <img src="{{ artwork.primaryImage }}" alt="image of {{ artwork.title }}">
+        <h1>
+            {{ artwork.1.title }}
+
+        </h1>
+        <h1>
+            {{ artwork.2.title }}
+
+        </h1>
+        <img src="{{ artwork.0.primaryImage }}" alt="image of {{ artwork.0.title }}" width="200px" height="200px">
+        <img src="{{ artwork.1.primaryImage }}" alt="image of {{ artwork.1.title }}" width="200px" height="200px">
+        <img src="{{ artwork.2.primaryImage }}" alt="image of {{ artwork.2.title }}" width="200px" height="200px">
+
+
     </div>
 {% endblock %}
