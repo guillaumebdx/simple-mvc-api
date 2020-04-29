@@ -29,9 +29,9 @@
 
 {% block title %}World's eyes{% endblock %}
 
+{% block bodyopen %}<body onload="initialize()">{% endblock %}
+
 {% block content %}
-    <body onload="initialize()">
-    <div id="earth_div"></div>
-    <h1>Hello Wilders !</h1>
+        <div id="earth_div"></div>
     </body>
 {% endblock %}
