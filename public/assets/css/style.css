@@ -1,0 +1,15 @@
+.arriere {
+    background-color:#07758d;
+
+    min-height: 6vw;
+}
+.terre{
+    width: 10%;
+    height: 10%;
+}
+.bg-warnec{
+    background-color:#7cb4c3 ;
+}
+a{
+    font-family: 'Noto Sans JP', sans-serif;
+}

@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+    Random
+
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/Video/origin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row divvideo ">
+            <iframe class="col-6" width="200" height="383" src="{{ data }}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <table class="offset-1 divtext">
+                <tr>
+                    <th> city:</th>
+                    <td>{{ para.city }} </td>
+                </tr>
+                <tr>
+                    <th>region: </th>
+                    <td>{{ para.region }}</td>
+                </tr>
+                <tr>
+                    <th>country:</th>
+                    <td>{{ para.country }}</td>
+                </tr>
+                <tr>
+                    <th>continent:</th>
+                    <td>{{ para.continent }}</td>
+                </tr>
+                <tr>
+                    <th>views:</th>
+                    <td>{{ view }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
