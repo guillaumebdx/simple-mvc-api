@@ -1,22 +1,23 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <select id="region" name="region" form="regionform">
-        <option value="">1</option>
-        <option value="Italy">Italy</option>
-        <option value="France">Saab</option>
-    </select>
-    <select id="dateBegin" name="dateBegin" form="regionform">
-        <option value="">1</option>
-        <option value="-100">2</option>
-        <option value="300">3</option>
-    </select>
-    <select id="dateEnd" name="dateEnd" form="regionform">
-        <option value="">1</option>
-        <option value="1600">4</option>
-        <option value="1700">5</option>
-    </select>
-    <form action="" method="POST" id="regionform">
+
+    <form action="/art/travel" method="POST" id="regionform">
+        <select id="region" name="region" form="regionform">
+            <option value="">1</option>
+            <option value="Italy">Italy</option>
+            <option value="France">Saab</option>
+        </select>
+        <select id="period" name="periodBegin" form="regionform">
+            <option value="antiquity">1</option>
+            <option value="-100">2</option>
+            <option value="300">3</option>
+        </select>
+        <select id="dateEnd" name="periodEnd" form="regionform">
+            <option value="">1</option>
+            <option value="1600">4</option>
+            <option value="1700">5</option>
+        </select>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}
