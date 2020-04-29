@@ -1,0 +1,14 @@
+.progress{width:100%;}
+body{background-color: #142850}
+#carouselArt{width: 100%;}
+img{
+    max-height:700px;
+    height:auto;
+    width: auto;
+    }
+.carousel-caption{
+    left:0;
+    width: 100%;
+    background-color: #142850;
+    opacity: 60%;
+}

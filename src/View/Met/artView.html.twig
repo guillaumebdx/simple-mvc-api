@@ -2,22 +2,43 @@
 
 {% block content %}
     <div class="container">
-        <h1>
-           {{ artwork.0.title }}
+        <div class="row justify-content-center my-5">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Antiquité</div>
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Moyen-Âge</div>
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Epoque Moderne</div>
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Epoque Contemporaine</div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="carouselArt" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for artwork in artworks %}
+                    <li data-target="#carouselArt" data-slide-to="{{ loop.index-1 }}" {% if loop.index == 1%} class="active"{% endif %}"></li>
+                    {% endfor %}
+                </ol>
 
-        </h1>
-        <h1>
-            {{ artwork.1.title }}
-
-        </h1>
-        <h1>
-            {{ artwork.2.title }}
-
-        </h1>
-        <img src="{{ artwork.0.primaryImage }}" alt="image of {{ artwork.0.title }}" width="200px" height="200px">
-        <img src="{{ artwork.1.primaryImage }}" alt="image of {{ artwork.1.title }}" width="200px" height="200px">
-        <img src="{{ artwork.2.primaryImage }}" alt="image of {{ artwork.2.title }}" width="200px" height="200px">
-
-
+                <div class="carousel-inner">
+                    {% for artwork in artworks %}
+                    <div class="carousel-item {% if loop.index == 1%}active{% endif %}">
+                        <a href="{{ artwork.objectURL }}" ><img src="{{ artwork.primaryImage }}" class="d-block w-100" alt="{{ artwork.title }}"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ artwork.title }}</h5>
+                            <p>{{ artwork.creditLine }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselArt" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselArt" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <a href="/art/journey/{{ location }}/{{ currentPeriod }}" alt="" class="btn btn-primary">Passer à l'époque suivante</a>
     </div>
 {% endblock %}
