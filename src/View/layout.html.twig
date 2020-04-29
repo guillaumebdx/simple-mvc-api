@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
+    {% block script %}{% endblock %}
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,11 +13,9 @@
     <link rel="icon" href="/assets/images/favicon.png">
 </head>
 
-<body>
 
-{% block content %}{% endblock %}
+{% block content %}<body></body>{% endblock %}
 {% block javascript %}{% endblock %}
-</body>
 </html>
 
 

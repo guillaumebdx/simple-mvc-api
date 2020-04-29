@@ -1,5 +1,37 @@
 {% extends 'layout.html.twig' %}
 
+{% block script %}
+    <script src="http://www.webglearth.com/v2/api.js"></script>
+    <script>
+        function initialize() {
+            var earth = new WE.map('earth_div');
+            WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
+
+            {% for webcam in webcams %}
+                var marker = WE.marker([{{ webcam.location.latitude }}, {{ webcam.location.longitude }}]).addTo(earth);
+                marker.bindPopup(
+                    "<img src='{{ webcam.image.current.preview }}'><b>{{ webcam.location.city }}</b><br>" +
+                    "longitude : {{ webcam.location.longitude }}<br />" +
+                    "latitude : {{ webcam.location.latitude }}<br />" +
+                    "<a href='/Video/picture/{{ webcam.id }}' class='popup'>view camera</a>",
+                    {maxWidth: 150, closeButton: true});
+            {% endfor %}
+
+
+            earth.setView([48.8534, 2.3488], 6);
+        }
+    </script>
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/home.css">
+{% endblock %}
+
+{% block title %}World's eyes{% endblock %}
+
 {% block content %}
-    <h1>Hello Wilder !</h1>
+    <body onload="initialize()">
+    <div id="earth_div"></div>
+    <h1>Hello Wilders !</h1>
+    </body>
 {% endblock %}
