@@ -1,5 +1,31 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Hello Wilder !</h1>
+   <div class="container d-flex justify-content-center" >
+      <div class="card bg-light text-dark shadow-lg home-card " >
+         <img src="{{cocktail.image}}" class="card-img" alt="cocktail" style="height: 45%">
+         <div class="card-img-overlay">
+            <h3 class="card-title text-white">{{cocktail.name}}</h3>
+         </div>
+         <div class="card-body d-flex justify-content-center">
+            <ul>
+               {% for ingredient in cocktail.ingredients %}
+                  {% if ingredient != null %}
+                     <li>{{ ingredient }}</li>
+                  {% endif %}
+               {% endfor %}
+            </ul>
+            <ul>
+               {% for measure in cocktail.measures %}
+                  {% if measure != null %}
+                     <li>{{ measure }}</li>
+                  {% endif %}
+               {% endfor %}
+            </ul>
+         </div>
+         <div class="card-body text-center">
+            <p>{{cocktail.instruction}}</p>
+         </div>
+      </div>
+   </div>
 {% endblock %}

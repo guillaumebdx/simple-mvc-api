@@ -1,10 +1,18 @@
 {
-    "name": "aurel/simple-mvc",
-    "description": "Simple from scratch PHP MVC",
+    "name": "wcs/hackathon",
+    "description": "Web application for hackathon",
     "authors": [
         {
-            "name": "Aurelien",
-            "email": "barbier.aurelien@wildcodeschool.fr"
+            "name": "Amélie Guérin",
+            "email": "amelie-guerin_student2020@wilder.school"
+        },
+        {
+            "name": "Laetitia Gonçalves",
+            "email": "laetitia-goncalves_student2020@wilder.school"
+        },
+        {
+            "name": "Guillaume Erpeldinger",
+            "email": "guillaume-erpeldinger_student2020@wilder.school"
         }
     ],
     "minimum-stability": "stable",

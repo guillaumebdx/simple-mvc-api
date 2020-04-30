@@ -13,4 +13,5 @@
  *
  */
 
-define('APP_API_KEY', 'DEMO_KEY');
+define('APP_API_KEY_COCTAIL', '1');
+define('APP_API_KEY_PIXABAY', 'DEMO_KEY');

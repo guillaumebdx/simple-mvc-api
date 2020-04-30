@@ -8,6 +8,11 @@
 
 namespace App\Controller;
 
+use App\Model\CocktailApi;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
 class HomeController extends AbstractController
 {
 
@@ -15,12 +20,14 @@ class HomeController extends AbstractController
      * Display home page
      *
      * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $cocktailApi = new CocktailApi();
+        $cocktail = $cocktailApi->getRandomCocktail();
+        return $this->twig->render('Home/index.html.twig', ['cocktail' => $cocktail]);
     }
 }
