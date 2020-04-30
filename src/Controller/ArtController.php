@@ -49,7 +49,7 @@ class ArtController extends AbstractController
     /**
      * Get the informations to display
      * @param string $location
-     * @param string $period
+     * @param string $currentPeriod
      * @return string
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
@@ -60,33 +60,22 @@ class ArtController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function journey(string $location, string $period)
+    public function journey(string $location, string $currentPeriod)
     {
-        $targetPeriod = $period;
+        $nextPeriod = [];
 
         if (!isset($_POST['region'])) {
-            $array = self::PERIODS;
-            $begin = $array[$period]["begin"];
-            foreach ($array as $item) {
-                $isTargetPeriod = in_array($begin, $item);
-                if ($isTargetPeriod === true) {
-                    break;
-                }
-                $targetPeriod = next($array);
-            }
+            $nextPeriod = $this->getNextPeriod($currentPeriod);
         }
 
-        if ($targetPeriod === false) {
-            header('Location: /');
-        } else {
-            return $this->output($location, $targetPeriod);
-        }
+        return $this->output($location, $currentPeriod, $nextPeriod);
     }
 
     /**
      * Display the informations
      * @param string $location
-     * @param array $period
+     * @param string $currentPeriod
+     * @param  mixed $nextPeriod
      * @return string
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
@@ -97,30 +86,52 @@ class ArtController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    private function output(string $location, array $period): string
+    private function output(string $location, string $currentPeriod, $nextPeriod): string
     {
         $metManager = new MetManager();
-
-        $begin = $period["begin"];
-        $end = $period["end"];
-        $targetPeriod = $period;
+        $periods = self::PERIODS;
+        $begin = $periods[$currentPeriod]["begin"];
+        $end = $periods[$currentPeriod]["end"];
 
         $object = $metManager->getObjectsByLocationAndPeriod($location, $begin, $end);
 
-        foreach (self::PERIODS as $key => $item) {
-            $isTargetPeriod = in_array($begin, $item);
-            if ($isTargetPeriod) {
-                $targetPeriod = $key;
-                break;
-            }
+        if (!empty($nextPeriod)) {
+            $target = '/art/journey/'.$location.'/'.$nextPeriod;
+        } else {
+            $target = '/';
         }
 
         $artworks = $this->randomPick(3, $object['objectIDs']);
         return $this->twig->render('Met/artView.html.twig', [
             'artworks' => $artworks,
-            'targetPeriod' => $targetPeriod,
-            'location' => $location
+            'target' => $target,
         ]);
+    }
+
+    /**
+     * @param string $period
+     * @return mixed
+     */
+    private function getNextPeriod(string $period)
+    {
+        if (!empty($period)) {
+            $array = self::PERIODS;
+
+            $begin = $array[$period]["begin"];
+
+            foreach ($array as $item) {
+                $isTargetPeriod = in_array($begin, $item);
+                next($array);
+                if ($isTargetPeriod === true) {
+                    break;
+                }
+            }
+            $target = key($array);
+        } else {
+            $target = '/';
+        }
+
+        return $target;
     }
 
     /**
