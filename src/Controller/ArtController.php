@@ -104,7 +104,8 @@ class ArtController extends AbstractController
         $artworks = $this->randomPick(3, $object['objectIDs']);
         return $this->twig->render('Met/artView.html.twig', [
             'artworks' => $artworks,
-            'target' => $target,
+            'current' => $currentPeriod,
+            'target' => $target
         ]);
     }
 

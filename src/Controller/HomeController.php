@@ -12,6 +12,26 @@ use App\Model\MetManager;
 
 class HomeController extends AbstractController
 {
+    const PERIODS = array(
+        "antiquity" => [
+            "begin" => '-3000',
+            "end" => '475'
+        ],
+        "middleAge" => [
+            "begin" => '476',
+            "end" => '1491'
+        ],
+        "modern" => [
+            "begin" => '1492',
+            "end" => '1788'
+        ],
+        "contemporary" => [
+            "begin" => '1789',
+            "end" => '2020'
+        ]);
+    const REGION =array(
+        'France','Italy'
+    );
 
     /**
      * Display home page
@@ -28,6 +48,6 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        return $this->twig->render('Home/index.html.twig', ['regions' => self::REGION , 'periods' =>self::PERIODS]);
     }
 }
