@@ -26,7 +26,7 @@
                                 <label for="exampleFormControlSelect1">Select Region</label>
                                 <select class="form-control form-control-lg" id="region" name="region" form="regionform">
                                     {% for region in regions %}
-                                        <option value="{{ region }}" selected>{{ region }}</option>
+                                        <option value="{{ region }}">{{ region }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -34,7 +34,7 @@
                                 <label for="exampleFormControlSelect1">Select Period</label>
                                 <select class="form-control form-control-lg"class="form-control form-control-lg" id="period" name="periodBegin" form="regionform">
                                     {% for key in periods|keys %}
-                                        <option value="{{ periods.key.begin }}" selected>{{ key }}</option>
+                                        <option value="{{ key }}">{{ key }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

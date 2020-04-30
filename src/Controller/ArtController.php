@@ -62,25 +62,26 @@ class ArtController extends AbstractController
      */
     public function journey(string $location, string $period)
     {
-        $targetPeriod = $period;
+        $currentPeriod ='';
 
         if (!isset($_POST['region'])) {
-            $array = self::PERIODS;
-            $begin = $array[$period]["begin"];
-            foreach ($array as $item) {
-                $isTargetPeriod = in_array($begin, $item);
-                if ($isTargetPeriod === true) {
+            $begin = self::PERIODS[$period]["begin"];
+            foreach (self::PERIODS as $item) {
+                $isLastPeriod = in_array($begin, $item);
+                if ($isLastPeriod) {
+                    $array = self::PERIODS;
+                    $currentPeriod = next($array);
                     break;
                 }
-                $targetPeriod = next($array);
             }
+        } else {
+            $currentPeriod = $period;
         }
 
-        if ($targetPeriod === false) {
+        if ($currentPeriod === false) {
             header('Location: /');
-        } else {
-            return $this->output($location, $targetPeriod);
         }
+        return $this->output($location, $currentPeriod);
     }
 
     /**
@@ -100,17 +101,17 @@ class ArtController extends AbstractController
     private function output(string $location, array $period): string
     {
         $metManager = new MetManager();
+        $currentPeriod = $period;
 
         $begin = $period["begin"];
         $end = $period["end"];
-        $targetPeriod = $period;
 
         $object = $metManager->getObjectsByLocationAndPeriod($location, $begin, $end);
 
         foreach (self::PERIODS as $key => $item) {
-            $isTargetPeriod = in_array($begin, $item);
-            if ($isTargetPeriod) {
-                $targetPeriod = $key;
+            $isCurrentPeriod = in_array($begin, $item);
+            if ($isCurrentPeriod) {
+                $currentPeriod = $key;
                 break;
             }
         }
@@ -118,7 +119,7 @@ class ArtController extends AbstractController
         $artworks = $this->randomPick(3, $object['objectIDs']);
         return $this->twig->render('Met/artView.html.twig', [
             'artworks' => $artworks,
-            'targetPeriod' => $targetPeriod,
+            'currentPeriod' => $currentPeriod,
             'location' => $location
         ]);
     }
