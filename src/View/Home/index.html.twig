@@ -2,24 +2,48 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-    <form action="/art/initiate/" method="POST" id="regionform">
-        <select id="region" name="region" form="regionform">
-            <option value="">1</option>
-            <option value="Italy">Italy</option>
-            <option value="France">Saab</option>
-        </select>
-        <select id="period" name="periodBegin" form="regionform">
-            <option value="antiquity">1</option>
-            <option value="-100">2</option>
-            <option value="300">3</option>
-        </select>
-        <select id="dateEnd" name="periodEnd" form="regionform">
-            <option value="">1</option>
-            <option value="1600">4</option>
-            <option value="1700">5</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="container">
+        <div class="row mt-5 pt-3 justify-content: center;">
+            <div class="col-sm-9 col-md-5 col-lg-5 p-0">
+                <div class="card form-card1">
+                    <div class="photo"></div>
+                    <h5 class="card-title text-center">Descover the Hestory with us</h5>
+                    <div class="card-body">
+                        <strong> How to get make tour in our tunnel</strong>
+                        <ul>
+                            <li> - First of all yo have to choose the region  you want to descover.</li>
+                            <li> - <i>(Optinal)</i> you can travel to a specific period.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-5 col-lg-5 p-0">
+                <div class="card form-card2">
+                    <div class="photo"></div>
+                    <div class="card-body">
+                        <form action="/art/initiate/" method="POST" id="regionform">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select Region</label>
+                                <select class="form-control form-control-lg" id="region" name="region" form="regionform">
+                                    {% for region in regions %}
+                                        <option value="{{ region }}" selected>{{ region }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select Period</label>
+                                <select class="form-control form-control-lg"class="form-control form-control-lg" id="period" name="periodBegin" form="regionform">
+                                    {% for key in periods|keys %}
+                                        <option value="{{ periods.key.begin }}" selected>{{ key }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mx-auto">Let's Go</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
